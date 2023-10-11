@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(180deg, #0F5823 22.63%, rgba(8, 2, 2, 0.00) 100%);
+            color: #ffffff;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh; /* Ensures the background covers the entire viewport height. */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 300px;
+        }
+
+        h1 {
+            color: #00ffcc;
+        }
+
+        .input-container {
+            margin: 10px 0;
+        }
+
+        input {
+            padding: 5px;
+            width: 100%;
+        }
+
+        button {
+            background-color: #00ffcc;
+            color: #000;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        button:hover {
+            background-color: #00cc99;
+            transform: scale(1.05);
+        }
+
+        #result {
+            margin: 10px 0;
+        }
+    </style>
+    <title>Days in Month</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Days in Month Calculator</h1>
+        <div class="input-container">
+            <label for="year">Enter a year:</label>
+            <input type="text" id="year" placeholder="Year">
+        </div>
+        <div class="input-container">
+            <label for "month">Enter a month (1-12):</label>
+            <input type="text" id="month" placeholder="Month">
+        </div>
+        <button id="calculate-button">Calculate</button>
+        <p id="result"></p>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const calculateButton = document.getElementById("calculate-button");
+            const yearInput = document.getElementById("year");
+            const monthInput = document.getElementById("month");
+            const resultText = document.getElementById("result");
+
+            calculateButton.addEventListener("click", function () {
+                const year = parseInt(yearInput.value);
+                const month = parseInt(monthInput.value);
+                const monthName = getMonthName(month);
+
+                if (isNaN(year) || isNaN(month) || month < 1 || month > 12) {
+                    resultText.innerText = "Invalid input. Year should be a number, and month should be between 1 and 12.";
+                } else {
+                    const days = days_in_month(year, month);
+                    resultText.innerText = `The month of ${monthName} in ${year} typically has ${days} days.`;
+                }
+            });
+
+            function getMonthName(month) {
+                const monthNames = [
+                    "January", "February", "March", "April", "May", "June",
+                    "July", "August", "September", "October", "November", "December"
+                ];
+                return monthNames[month - 1];
+            }
+
+            function days_in_month(year, month) {
+                return new Date(year, month, 0).getDate();
+            }
+        });
+    </script>
+</body>
+</html>
